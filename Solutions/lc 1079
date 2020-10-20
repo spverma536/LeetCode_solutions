@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void solve(unordered_set<string>&s,string a, string t, int st)
+    {
+        //cout<<a<<endl;
+        if(!a.empty())
+        s.insert(a);
+        for(int i=st;i<t.length();i++)
+        {
+            if(i>st and t[i]==t[i-1])
+                continue;
+            a.push_back(t[i]);
+            solve(s,a,t,i+1);
+            a.erase(a.begin()+a.size()-1);
+        }
+        return;
+    }
+    int numTilePossibilities(string t) {
+        string p = "";
+        sort(t.begin(),t.end());
+        unordered_set<string>se;
+        do{
+            solve(se,"",t,0);
+        }
+        while(next_permutation(t.begin(),t.end()));
+        return se.size();
+    }
+};
